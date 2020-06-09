@@ -1,0 +1,11 @@
+/* styles in this file will be scoped in this component */
+
+mat-card {
+  width: 80%;
+  margin: auto;
+}
+
+mat-form-field,
+textarea {
+  width: 100%;
+}
