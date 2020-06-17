@@ -2,9 +2,10 @@
 <!-- <textarea rows="6" [value]="newPost" #postInput></textarea> -->
 
 <mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
   <!-- will submit to JS even if it's invalid,
     for example like vacant required field -->
-  <form (submit)="onSavePost(postForm)" #postForm="ngForm">
+  <form (submit)="onSavePost(postForm)" #postForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input
         matInput
