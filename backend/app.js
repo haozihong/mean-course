@@ -7,7 +7,11 @@ const postsRoutes = require("./routes/posts");
 
 mongoose
   .connect(
-    "mongodb+srv://zh_wdb:i0rXZisJMqHEXgoC@cluster0-axrvi.mongodb.net/mean-guide?retryWrites=true&w=majority"
+    "mongodb+srv://zh_wdb:i0rXZisJMqHEXgoC@cluster0-axrvi.mongodb.net/mean-guide?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    }
   )
   .then(() => {
     console.log("Connected to database!");
@@ -33,6 +37,5 @@ app.use((req, res, next) => {
 });
 
 app.use("/api/posts/", postsRoutes);
-
 
 module.exports = app;
