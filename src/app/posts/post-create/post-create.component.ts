@@ -16,6 +16,7 @@ export class PostCreateComponent implements OnInit {
   post: Post;
   isLoading = false;
   form: FormGroup;
+  imagePerview: string;
   private mode = 'create';
   private postId: string;
 
@@ -59,10 +60,14 @@ export class PostCreateComponent implements OnInit {
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
+    if (!file) return;
     this.form.patchValue({image: file});
     this.form.get('image').updateValueAndValidity();
-    console.log(file);
-    console.log(this.form);
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePerview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   // convention to start methord for event with a "on"
