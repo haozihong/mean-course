@@ -43,7 +43,7 @@ export class PostCreateComponent implements OnInit {
         this.mode = 'edit';
         this.postId = paramMap.get('postId');
         this.isLoading = true;
-        this.postsService.getPost(this.postId).subscribe((postData) => {
+        this.postsService.getPost(this.postId).subscribe((postData) => { // what if postId doesn't exist?
           this.isLoading = false;
           this.post = {
             id: postData._id,
@@ -76,7 +76,11 @@ export class PostCreateComponent implements OnInit {
     if (this.form.invalid) return;
     this.isLoading = true;
     if (this.mode == 'create') {
-      this.postsService.addPost(this.form.value.title, this.form.value.content);
+      this.postsService.addPost(
+        this.form.value.title,
+        this.form.value.content,
+        this.form.value.image
+      );
     } else if (this.mode == 'edit') {
       this.postsService.updatePost(
         this.postId,
