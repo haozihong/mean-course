@@ -60,7 +60,16 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res) => {
 });
 
 router.get("", (req, res) => {
-  Post.find().then((documents) => {
+  const pageSize = Number(req.query.pagesize);
+  const currentPage = Number(req.query.page);
+  const postQuery = Post.find();
+  if (pageSize && currentPage) {
+    // this way may have performance issues for extremely large database
+    postQuery
+      .skip(pageSize * (currentPage - 1))
+      .limit(pageSize);
+  }
+  postQuery.find().then((documents) => {
     res.status(200).json({
       message: "Posts fetched successfully!",
       posts: documents,
