@@ -49,11 +49,15 @@ export class PostCreateComponent implements OnInit {
             id: postData._id,
             title: postData.title,
             content: postData.content,
-            imagePath: null,
+            imagePath: postData.imagePath,
           };
-          this.form.setValue({ 'title': this.post.title, 'content': this.post.content })
+          this.imagePerview = postData.imagePath;
+          this.form.setValue({
+            'title': this.post.title,
+            'content': this.post.content,
+            'image': postData.imagePath,
+          });
         });
-        console.log(this.post);
       } else {
         this.mode = 'create';
       }
@@ -74,7 +78,7 @@ export class PostCreateComponent implements OnInit {
 
   // convention to start methord for event with a "on"
   onSavePost() {
-    if (this.form.invalid) return;
+    // if (this.form.invalid) return;
     this.isLoading = true;
     if (this.mode == 'create') {
       this.postsService.addPost(
@@ -86,7 +90,8 @@ export class PostCreateComponent implements OnInit {
       this.postsService.updatePost(
         this.postId,
         this.form.value.title,
-        this.form.value.content
+        this.form.value.content,
+        this.form.value.image || this.post.imagePath,
       );
     }
     this.form.reset();
