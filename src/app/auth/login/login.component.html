@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-spinner *ngIf="isLoading"></mat-spinner>
+  <!-- will submit to JS even if it's invalid,
+    for example like vacant required field -->
+  <form *ngIf="!isLoading">
+    <mat-form-field>
+      <input
+        matInput
+        type="email"
+        placeholder="E-Mail">
+        <mat-error *ngIf="">Please enter a valid email.</mat-error>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput type="password" placeholder="Password">
+      <mat-error *ngIf="">Please enter a valid password.</mat-error>
+    </mat-form-field>
+    <button
+      mat-raised-button
+      color="accent"
+      type="submit">Login</button>
+  </form>
+</mat-card>
+
+<!-- string interpolation: could be variable or method -->
+<!-- <p>{{ newPost }}</p> -->
