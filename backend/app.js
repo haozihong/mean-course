@@ -5,10 +5,13 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const postsRoutes = require("./routes/posts");
+const userRoutes = require("./routes/user");
+
+const DBURL = process.env.MONGODBURL0.replace(/<dbname>/, "mean-guide") || "";
 
 mongoose
   .connect(
-    "mongodb+srv://zh_wdb:i0rXZisJMqHEXgoC@cluster0-axrvi.mongodb.net/mean-guide?retryWrites=true&w=majority",
+    DBURL,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -38,6 +41,6 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/posts/", postsRoutes);
+app.use("/api/posts", postsRoutes);
 
 module.exports = app;
