@@ -23,7 +23,7 @@ const storage = multer.diskStorage({
   },
 });
 
-router.post("", multer({ storage: storage }).single("image"), (req, res) => {
+router.post("/", multer({ storage: storage }).single("image"), (req, res) => {
   const url = req.protocol + "://" + req.get("host");
   const post = new Post({
     title: req.body.title,
@@ -59,7 +59,7 @@ router.put("/:id", multer({ storage: storage }).single("image"), (req, res) => {
   });
 });
 
-router.get("", (req, res) => {
+router.get("/", (req, res) => {
   const pageSize = Number(req.query.pagesize);
   const currentPage = Number(req.query.page);
   const postQuery = Post.find();
@@ -70,7 +70,7 @@ router.get("", (req, res) => {
       .limit(pageSize);
   }
   let postsCount;
-  Post.count().then((count) => {
+  Post.estimatedDocumentCount().then((count) => {
     postsCount = count;
     return postQuery;
   }).then((documents) => {
