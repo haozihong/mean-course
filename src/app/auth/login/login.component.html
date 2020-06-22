@@ -2,17 +2,30 @@
   <mat-spinner *ngIf="isLoading"></mat-spinner>
   <!-- will submit to JS even if it's invalid,
     for example like vacant required field -->
-  <form *ngIf="!isLoading">
+  <form (submit)="onLogin(loginForm)" #loginForm="ngForm" *ngIf="!isLoading">
     <mat-form-field>
       <input
         matInput
         type="email"
-        placeholder="E-Mail">
-        <mat-error *ngIf="">Please enter a valid email.</mat-error>
+        name="email"
+        placeholder="E-Mail"
+        ngModel
+        #emailInput="ngModel"
+        required
+        email>
+      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
     </mat-form-field>
     <mat-form-field>
-      <input matInput type="password" placeholder="Password">
-      <mat-error *ngIf="">Please enter a valid password.</mat-error>
+      <input
+        matInput
+        type="password"
+        name="password"
+        ngModel
+        placeholder="Password"
+        ngModel
+        #passwordInput="ngModel"
+        required>
+      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
     </mat-form-field>
     <button
       mat-raised-button
