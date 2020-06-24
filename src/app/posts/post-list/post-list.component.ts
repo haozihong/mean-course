@@ -40,7 +40,7 @@ export class PostListComponent implements OnInit, OnDestroy {
         this.userIsAuthenticated = isAuhthenticated;
         console.log("auth in post-list change to " + this.userIsAuthenticated);
       });
-      this.userIsAuthenticated = this.authService.getIsAuth();
+    this.userIsAuthenticated = this.authService.getIsAuth();
   }
 
   ngOnDestroy() {
