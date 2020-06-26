@@ -79,7 +79,7 @@ export class PostCreateComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.authStatusSub.unsubscribe();
-    this.postsSub.unsubscribe();
+    if (this.postsSub) this.postsSub.unsubscribe();
   }
 
   onImagePicked(event: Event) {
