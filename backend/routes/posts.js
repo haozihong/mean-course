@@ -46,6 +46,9 @@ router.post(
           imagePath: createdPost.imagePath,
         },
       });
+    })
+    .catch(err => {
+      return res.status(500).json({ message: "Creating a post failed!" });
     });
   }
 );
@@ -72,6 +75,9 @@ router.put(
         } else {
           res.status(401).json({ message: "Not authorized!" });
         }
+      })
+      .catch(err => {
+        return req.status(500).json({ message: "Couldn't update post!" });
       });
   }
 );
@@ -90,12 +96,16 @@ router.get("/", (req, res) => {
   Post.estimatedDocumentCount().then((count) => {
     postsCount = count;
     return postQuery;
-  }).then((documents) => {
+  })
+  .then((documents) => {
     res.status(200).json({
       message: "Posts fetched successfully!",
       posts: documents,
       maxPosts: postsCount,
     });
+  })
+  .catch(err => {
+    return res.status(500).json({ message: "Fetching posts failed!" })
   });
 });
 
@@ -106,6 +116,9 @@ router.get("/:id", (req, res) => {
     } else {
       res.status(404).json({ message: "Post not found!" });
     }
+  })
+  .catch(err => {
+    return res.status(500).json({ message: "Fetching posts failed!" })
   });
 });
 
@@ -117,6 +130,9 @@ router.delete("/:id", checkAuth, (req, res, next) => {
     } else {
       res.status(401).json({ message: "Not authorized!" });
     }
+  })
+  .catch(err => {
+    return res.status(500).json({ message: "Fetching posts failed!" })
   });
 });
 
