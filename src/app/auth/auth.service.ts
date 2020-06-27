@@ -5,6 +5,9 @@ import { Subject } from 'rxjs';
 
 import { AuthData } from './auth-data.model';
 
+// to use injectable like this a good way
+// if we provide this on a module level, we can get unwanted side effects
+// like having different instances
 @Injectable({ providedIn: 'root' })
 export class AuthService{
   private isAuthenticated = false;
