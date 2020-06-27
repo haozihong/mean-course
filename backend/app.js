@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const postsRoutes = require("./routes/posts");
 const userRoutes = require("./routes/user");
 
-const DBURL = process.env.MONGODBURL0.replace(/<dbname>/, "mean-guide") || "";
+const DBURL = `mongodb+srv://zh_wdb:${process.env.MONGO_ATLAS_PW}@cluster0-axrvi.mongodb.net/mean-guide?retryWrites=true&w=majority`;
 
 mongoose
   .connect(
