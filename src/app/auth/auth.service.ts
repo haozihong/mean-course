@@ -3,7 +3,10 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 
+import { environment } from "../../environments/environment";
 import { AuthData } from './auth-data.model';
+
+const BACKEND_URL = environment.apiUrl + '/user';
 
 // to use injectable like this a good way
 // if we provide this on a module level, we can get unwanted side effects
@@ -36,7 +39,7 @@ export class AuthService{
 
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
-    this.http.post('http://localhost:3000/api/user/signup', authData)
+    this.http.post(BACKEND_URL + '/signup', authData)
       .subscribe(result => {
         this.router.navigate(['/']);
       }, error => {
@@ -48,7 +51,7 @@ export class AuthService{
     const authData: AuthData = { email: email,password: password };
     this.http
       .post<{ token: string; expiresIn: number; userId: string }>(
-        'http://localhost:3000/api/user/login',
+        BACKEND_URL + '/login',
         authData
       )
       .subscribe((response) => {
